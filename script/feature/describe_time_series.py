@@ -29,8 +29,6 @@ spark = SparkSession. \
     enableHiveSupport(). \
     getOrCreate()
 
-
-
 #base statistic feature
 
 item_sale_sql = """
@@ -131,17 +129,3 @@ if __name__ == '__main__':
         from item_cycle a 
         left join item_adfuller b
         on a.shop_id=b.shop_id and a.sku_id=b.sku_id""")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
