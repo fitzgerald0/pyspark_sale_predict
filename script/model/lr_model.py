@@ -93,14 +93,14 @@ def read_importance_feature():
     """
 
     importance_feature = spark.sql("""select feature from app.selection_result_v1 where cum_sum<0.95 and update_date 
-    in (select max(update_date) as update_date from app.selection_result_v1)""").select("feature").collect()
+    in (select max(update_date) as update_date from temp.selection_result_v1)""").select("feature").collect()
     importance_list = [row.feature for row in importance_feature]
     print('..use'+str(len(importance_list))+'numbers of feature...')
     return importance_list
 
 
 def main():
-    data=spark.sql("""select * from app.dataset_input_df_v2 where dt>='2020-08-04'""")
+    data=spark.sql("""select * from temp.dataset_feature'""")
     importance_feature=read_importance_feature()
     reg, inter, elastic = 0.5,False,1.0
     linear_predict(data, importance_feature, reg, inter, elastic).prediction()
