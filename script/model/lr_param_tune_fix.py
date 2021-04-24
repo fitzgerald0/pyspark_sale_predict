@@ -157,15 +157,15 @@ class best_param(object):
             raise ValueError("tune the best param is wrong at {},{}".format(self.today, self.update_time))
         pd_best_params=spark.createDataFrame(pd_best_params)
         try:
-            pd_best_params.write.mode("append").format('hive').saveAsTable('app.regression_model_best_param')
+            pd_best_params.write.mode("append").format('hive').saveAsTable('temp.regression_model_best_param')
         except:
             pd_best_params.createOrReplaceTempView('pd_best_params')
-            spark.sql("""drop table if exists app.regression_model_best_param""")
-            spark.sql("""create table app.regression_model_best_param as select * from pd_best_params""")
+            spark.sql("""drop table if exists temp.regression_model_best_param""")
+            spark.sql("""create table temp.regression_model_best_param as select * from pd_best_params""")
 
 def main():
     importance_list = read_importance_feature()
-    df = spark.sql("""select * from app.dataset_input_df_v2 where dt>='2020-08-24'""")
+    df = spark.sql("""select * from temp.dataset_feature'""")
     best_param(is_cv=False).run_tune(importance_list, df)
 
 if __name__ == '__main__':
