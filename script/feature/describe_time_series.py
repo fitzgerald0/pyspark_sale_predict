@@ -84,8 +84,7 @@ def cycle_test(df,check_len=7):
     :param check_len: will check cycle length,eg weekly:7,month:30,year:12
     :return:int,1 is exit cycle,other is 0
     """
-
-    assert check_len <=2,('cycle length must bigger then 2')
+    assert check_len >2,('cycle length must bigger then 2')
     df = df.sort_values(by=['dt'], ascending=True)
     acf_values=acf(df['label'],nlags=df.shape[0]-1)
     loc_max_index=signal.argrelextrema(acf_values,comparator=np.greater,order=check_len//2)
